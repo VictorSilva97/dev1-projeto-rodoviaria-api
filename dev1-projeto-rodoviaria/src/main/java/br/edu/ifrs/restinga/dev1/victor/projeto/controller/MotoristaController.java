@@ -56,7 +56,7 @@ public class MotoristaController {
             return motorista.get();
         else 
             throw new NaoEncontradoException("ID não encontrado.");
-    }
+    }    
     
     @RequestMapping(path="/motorista/{id}", method=RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)

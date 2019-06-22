@@ -5,12 +5,16 @@
  */
 package br.edu.ifrs.restinga.dev1.victor.projeto.modelo.entidade;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.sql.Time;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -24,10 +28,23 @@ public class Viagem {
     private int id;
     private String origem;
     private String destino;
+    
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date data;
-    private Time horaSaida;
-    private Time horaChegada;
-
+    
+    private String horaSaida;
+    private String horaChegada;
+    
+    @ManyToOne
+    private Motorista motorista;
+    
+    @ManyToOne
+    private Onibus onibus;
+    
+    @ManyToOne
+    private Usuario usuario;
+   
     public int getId() {
         return id;
     }
@@ -59,21 +76,45 @@ public class Viagem {
     public void setData(Date data) {
         this.data = data;
     }
+    
+    public Motorista getMotorista() {
+        return motorista;
+    }
 
-    public Time getHoraSaida() {
+    public void setMotorista(Motorista motorista) {
+        this.motorista = motorista;
+    }
+
+    public Onibus getOnibus() {
+        return onibus;
+    }
+
+    public void setOnibus(Onibus onibus) {
+        this.onibus = onibus;
+    }
+
+    public String getHoraSaida() {
         return horaSaida;
     }
 
-    public void setHoraSaida(Time horaSaida) {
+    public void setHoraSaida(String horaSaida) {
         this.horaSaida = horaSaida;
     }
 
-    public Time getHoraChegada() {
+    public String getHoraChegada() {
         return horaChegada;
     }
 
-    public void setHoraChegada(Time horaChegada) {
+    public void setHoraChegada(String horaChegada) {
         this.horaChegada = horaChegada;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
 }
