@@ -11,6 +11,7 @@ import br.edu.ifrs.restinga.dev1.victor.projeto.modelo.entidade.Motorista;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +25,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class MotoristaController {
     
     @Autowired
     IMotoristaDAO motoristaDAO;
     
-    @RequestMapping(path="/motorista/", method=RequestMethod.POST)
+    @RequestMapping(path="/motoristas/", method=RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Motorista inserir(@RequestBody Motorista motorista){
         try{
@@ -42,13 +44,13 @@ public class MotoristaController {
         return null;
     } 
     
-    @RequestMapping(path="/motorista/", method=RequestMethod.GET)
+    @RequestMapping(path="/motoristas/", method=RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public Iterable<Motorista> listar(){
         return motoristaDAO.findAll();
     }
     
-    @RequestMapping(path="/motorista/{id}", method=RequestMethod.GET)
+    @RequestMapping(path="/motoristas/{id}", method=RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public Motorista recuperar(@PathVariable int id){
         final Optional<Motorista> motorista = motoristaDAO.findById(id);
@@ -58,7 +60,7 @@ public class MotoristaController {
             throw new NaoEncontradoException("ID não encontrado.");
     }    
     
-    @RequestMapping(path="/motorista/{id}", method=RequestMethod.PUT)
+    @RequestMapping(path="/motoristas/{id}", method=RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Motorista atualizar(@PathVariable int id, @RequestBody Motorista motoristaAtualizado){
         try{
@@ -76,7 +78,7 @@ public class MotoristaController {
         return null;
     }
 
-    @RequestMapping(path="/motorista/{id}", method=RequestMethod.DELETE)
+    @RequestMapping(path="/motoristas/{id}", method=RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void apagar(@PathVariable int id){
         if(motoristaDAO.existsById(id))
