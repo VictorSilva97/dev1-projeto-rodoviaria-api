@@ -5,6 +5,7 @@
  */
 package br.edu.ifrs.restinga.dev1.victor.projeto.controller;
 import br.edu.ifrs.restinga.dev1.victor.projeto.erro.NaoEncontradoException;
+import br.edu.ifrs.restinga.dev1.victor.projeto.erro.RequisicaoInvalidaException;
 import br.edu.ifrs.restinga.dev1.victor.projeto.modelo.dao.IOnibusDAO;
 import br.edu.ifrs.restinga.dev1.victor.projeto.modelo.entidade.Onibus;
 import java.util.Optional;
@@ -88,7 +89,24 @@ public class OnibusController {
     }    
     
     private boolean ehOnibusValido(Onibus onibus) {
+        if(ehNuloOuVazio(onibus.getPlaca()))
+            throw new RequisicaoInvalidaException("O campo placa é obrigatório");
+        
+        if(ehNuloOuVazio(onibus.getMarca()))
+            throw new RequisicaoInvalidaException("O campo marca é obrigatório");
+        
+        if(ehNuloOuVazio(onibus.getModelo()))
+            throw new RequisicaoInvalidaException("O campo modelo é obrigatório");
+        
         return true;
     }       
    
+    private boolean ehNuloOuVazio(String valor) {
+        if(valor == null)
+            return true;
+        if(valor.isEmpty())
+            return true;
+        
+        return false;
+    }
 }

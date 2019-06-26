@@ -6,6 +6,7 @@
 package br.edu.ifrs.restinga.dev1.victor.projeto.controller;
 
 import br.edu.ifrs.restinga.dev1.victor.projeto.erro.NaoEncontradoException;
+import br.edu.ifrs.restinga.dev1.victor.projeto.erro.RequisicaoInvalidaException;
 import br.edu.ifrs.restinga.dev1.victor.projeto.modelo.dao.IMotoristaDAO;
 import br.edu.ifrs.restinga.dev1.victor.projeto.modelo.entidade.Motorista;
 import java.util.Optional;
@@ -88,7 +89,23 @@ public class MotoristaController {
     }    
     
     private boolean ehMotoristaValido(Motorista motorista) {
+        
+        if(ehNuloOuVazio(motorista.getNome()))
+            throw new RequisicaoInvalidaException("O campo nome é obrigatório");
+        
+        if(ehNuloOuVazio(motorista.getCnh()))
+            throw new RequisicaoInvalidaException("O campo CNH é obrigatório");
+        
         return true;
     }       
+    
+    private boolean ehNuloOuVazio(String valor) {
+        if(valor == null)
+            return true;
+        if(valor.isEmpty())
+            return true;
+        
+        return false;
+    }
 }
 

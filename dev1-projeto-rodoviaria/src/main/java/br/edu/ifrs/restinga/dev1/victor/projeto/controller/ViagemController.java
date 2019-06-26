@@ -6,6 +6,7 @@
 package br.edu.ifrs.restinga.dev1.victor.projeto.controller;
 
 import br.edu.ifrs.restinga.dev1.victor.projeto.erro.NaoEncontradoException;
+import br.edu.ifrs.restinga.dev1.victor.projeto.erro.RequisicaoInvalidaException;
 import br.edu.ifrs.restinga.dev1.victor.projeto.modelo.dao.IMotoristaDAO;
 import br.edu.ifrs.restinga.dev1.victor.projeto.modelo.dao.IOnibusDAO;
 import br.edu.ifrs.restinga.dev1.victor.projeto.modelo.dao.IUsuarioDAO;
@@ -112,7 +113,31 @@ public class ViagemController {
     }    
     
     private boolean ehViagemValida(Viagem viagem) {
+        if(ehNuloOuVazio(viagem.getOrigem()))
+            throw new RequisicaoInvalidaException("O campo origem é obrigatório");
+        if(ehNuloOuVazio(viagem.getDestino()))
+            throw new RequisicaoInvalidaException("O campo destino é obrigatório");
+        if(viagem.getData() == null)
+            throw new RequisicaoInvalidaException("O campo data é obrigatório");
+        if(ehNuloOuVazio(viagem.getHoraSaida()))
+            throw new RequisicaoInvalidaException("O campo horário de partida é obrigatório");
+        if(ehNuloOuVazio(viagem.getHoraChegada()))
+            throw new RequisicaoInvalidaException("O campo horário de chegada é obrigatório");
+        if(viagem.getMotorista() == null)
+            throw new RequisicaoInvalidaException("O campo motorista é obrigatório");
+        if(viagem.getOnibus() == null)
+            throw new RequisicaoInvalidaException("O campo onibus é obrigatório");
+        
         return true;
+    }
+    
+    private boolean ehNuloOuVazio(String valor) {
+        if(valor == null)
+            return true;
+        if(valor.isEmpty())
+            return true;
+        
+        return false;
     }
        
 }
