@@ -30,7 +30,7 @@ public class Viagem {
     private String destino;
     
     @Temporal(TemporalType.DATE)
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date data;
     
     private String horaSaida;
